@@ -1,0 +1,256 @@
+---
+title: "Small Errors, Big Consequences: Lessons from Data Mismanagement in Business" 
+author: "Karla Hernández - 400916125 - hernandez.karla@stud.hs-fresenius.de" 
+format: revealjs 
+editor: visual 
+---
+
+## Why Smalls Errors Matter
+
+-   Data drives decisions in production, hiring, marketing & forecasting
+-   Most business data failures are not dramatic bugs
+-   They come from tiny, unnoticed mistakes
+-   If the data is wrong, the decision is wrong
+-   RStudio does not warn when results are logically wrong
+
+## What Counts as a "Small Error"?
+
+::: {#tbl}
+| Error                 | What it Means                             |
+|-----------------------|-------------------------------------------|
+| “Mexico” vs “México”  | R treats them as two different categories |
+| Number stored as text | Math doesn't work the way we expect       |
+| Missing values        | Averages and totals become wrong          |
+| Duplicate rows        | Customers or employees counted twice      |
+| Wrong join            | Rows multiply or disappear silently       |
+:::
+
+## Tiny Errors, Big Consequences
+
+<div>
+
+| Area | Tiny Error | Big Result |
+|------------------------|------------------------|------------------------|
+| Retail | Missing value in sales | Too little production that leads to lost on sales |
+| HR | Employee duplicated during merge | Over-hired people that leads to unnecessary cost |
+| Marketing | Duplicated customers | Overspent on ads |
+
+</div>
+
+## Bad Practice Example
+
+``` r
+
+# BAD import: let R guess names and types
+data_bad <- read.csv("shopping_behavior.csv")
+
+# BAD filter (forgetting to handle NA, using base [] correctly this time but no cleaning)
+young_bad <- data_bad[data_bad$Age < 30, ]
+
+# BAD join using merge() with the same location_info
+location_info <- data.frame(
+  Location = c("California", "New York", "Texas", "Florida"),
+  Region   = c("West", "East", "South", "South"),
+  stringsAsFactors = FALSE
+)
+
+merged_bad <- merge(young_bad, location_info)
+
+# BAD summary: mean without na.rm and no cleaning of Location variants
+result_bad <- aggregate(Purchase.Amount..USD. ~ Location, data = merged_bad, FUN = mean)
+
+# Rename columns to match good version later
+names(result_bad) <- c("Location_clean", "avg_spend_bad")
+result_bad$avg_spend_bad <- round(result_bad$avg_spend_bad, 2)
+
+result_bad
+print(result_bad, n = Inf)
+View(result_bad)
+```
+
+## 
+
+```{r}
+# BAD import: let R guess names and types
+data_bad <- read.csv("shopping_behavior.csv")
+
+# BAD filter (forgetting to handle NA, using base [] correctly this time but no cleaning)
+young_bad <- data_bad[data_bad$Age < 30, ]
+
+# BAD join using merge() with the same location_info
+location_info <- data.frame(
+  Location = c("California", "New York", "Texas", "Florida"),
+  Region   = c("West", "East", "South", "South"),
+  stringsAsFactors = FALSE
+)
+
+merged_bad <- merge(young_bad, location_info)
+
+# BAD summary: mean without na.rm and no cleaning of Location variants
+result_bad <- aggregate(Purchase.Amount..USD. ~ Location, data = merged_bad, FUN = mean)
+
+# Rename columns to match good version later
+names(result_bad) <- c("Location_clean", "avg_spend_bad")
+result_bad$avg_spend_bad <- round(result_bad$avg_spend_bad, 2)
+
+# Bad practice result
+library(knitr)
+library(kableExtra)
+
+result_bad |>
+  kbl(caption = "Bad practice result") |>
+  scroll_box(height = "600px")
+
+```
+
+## Good Practice Example
+
+``` r
+
+library(dplyr)
+library(lubridate)
+
+# 1) Read data with good practices
+data_good <- read.csv(
+  "shopping_behavior.csv",
+  stringsAsFactors = FALSE,
+  check.names = FALSE   # keeps "Purchase Amount (USD)" as-is
+)
+
+# 2) Parse dates correctly
+data_good <- data_good %>%
+  mutate(
+    Date_good = dmy(Date)
+  )
+
+# 3) Remove exact duplicate rows (we know we injected some)
+data_nodup <- data_good %>%
+  distinct(.keep_all = TRUE)
+
+# 4) Keep only customers under 30
+young_good <- data_nodup %>%
+  filter(Age < 30)
+
+# 5) Location lookup table (regions are just for context)
+location_info <- data.frame(
+  Location = c("California", "New York", "Texas", "Florida"),
+  Region   = c("West", "East", "South", "South"),
+  stringsAsFactors = FALSE
+)
+
+# 6) Safe join: keep all young customers, add Region if Location matches
+merged_good <- young_good %>%
+  left_join(location_info, by = "Location")
+
+# 7) Clean up Location variants into one standard name
+final_clean <- merged_good %>%
+  mutate(
+    Location_clean = case_when(
+      Location %in% c("California", "california", "Californi", "CA") ~ "California",
+      Location %in% c("New York", "NewYork", "N. York")              ~ "New York",
+      TRUE ~ Location
+    )
+  ) %>%
+  group_by(Location_clean) %>%
+  summarise(
+    avg_spend_young = mean(`Purchase Amount (USD)`, na.rm = TRUE),
+    n_customers     = n(),
+    .groups = "drop"
+  ) %>%
+  arrange(Location_clean)
+
+# 8) Round numbers to make the table nice for printing
+final_clean$avg_spend_young <- round(final_clean$avg_spend_young, 2)
+
+# 9) Print final result nicely
+final_clean
+
+print(final_clean, n = Inf)
+View(final_clean)
+
+  
+```
+
+## 
+
+```{r}
+library(dplyr)
+library(lubridate)
+
+# 1) Read data with good practices
+data_good <- read.csv(
+  "shopping_behavior.csv",
+  stringsAsFactors = FALSE,
+  check.names = FALSE   # keeps "Purchase Amount (USD)" as-is
+)
+
+# 2) Parse dates correctly
+data_good <- data_good %>%
+  mutate(
+    Date_good = dmy(Date)
+  )
+
+# 3) Remove exact duplicate rows (we know we injected some)
+data_nodup <- data_good %>%
+  distinct(.keep_all = TRUE)
+
+# 4) Keep only customers under 30
+young_good <- data_nodup %>%
+  filter(Age < 30)
+
+# 5) Location lookup table (regions are just for context)
+location_info <- data.frame(
+  Location = c("California", "New York", "Texas", "Florida"),
+  Region   = c("West", "East", "South", "South"),
+  stringsAsFactors = FALSE
+)
+
+# 6) Safe join: keep all young customers, add Region if Location matches
+merged_good <- young_good %>%
+  left_join(location_info, by = "Location")
+
+# 7) Clean up Location variants into one standard name
+final_clean <- merged_good %>%
+  mutate(
+    Location_clean = case_when(
+      Location %in% c("California", "california", "Californi", "CA") ~ "California",
+      Location %in% c("New York", "NewYork", "N. York")              ~ "New York",
+      TRUE ~ Location
+    )
+  ) %>%
+  group_by(Location_clean) %>%
+  summarise(
+    avg_spend_young = mean(`Purchase Amount (USD)`, na.rm = TRUE),
+    n_customers     = n(),
+    .groups = "drop"
+  ) %>%
+  arrange(Location_clean)
+
+# 8) Round numbers to make the table nice for printing
+final_clean$avg_spend_young <- round(final_clean$avg_spend_young, 2)
+
+# 9) Good practice result
+library(knitr)
+library(kableExtra)
+
+final_clean |>
+  kbl(caption = "Good practice result") |>
+  scroll_box(height = "600px")
+
+```
+
+## Lessons from Data Mismanagement in Business
+
+1.  A *tiny mistake* in data can cause a **huge mistake** in a business decision.
+2.  RStudio won't warn you when the result is *wrong*, only when the **code** is.
+3.  Never *assume* the data is clean, always **check it**.
+4.  Good analysis starts **before** modeling with data validation.
+5.  *Being explicit* in your code **prevents disasters**.
+
+## 
+
+6.  Documentation and reproducible scripts **protect** you from *mistakes*.
+7.  *Joins* are one of the most dangerous operations, **check them twice**.
+8.  **Data types** matter more than most people realize.
+9.  *Peer* review is **essential**.
+10. ***Great analysts aren't those who make no mistakes, they are the ones who catch mistakes early.***
