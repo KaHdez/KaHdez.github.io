@@ -287,34 +287,41 @@ Karla Hernández - 400916125 - hernandez.karla@stud.hs-fresenius.de
 </table>
 </div>
 </section>
+<section id="bad-practice-vs-good-practice" class="slide level2">
+<h2>Bad Practice vs Good Practice</h2>
+<p><em>Scenario:</em></p>
+<p>What is the average purchase amount of customers under 30, and how does it differ by location?</p>
+<ul>
+<li>Click to download dataset: <a href="shopping_behavior.csv" download="">CSV shopping_behavior dataset</a></li>
+</ul>
+</section>
 <section id="bad-practice-example" class="slide level2">
 <h2>Bad Practice Example</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a></span>
-<span id="cb1-2"><a href=""></a><span class="co"># BAD import: let R guess names and types</span></span>
-<span id="cb1-3"><a href=""></a>data_bad <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"shopping_behavior.csv"</span>)</span>
-<span id="cb1-4"><a href=""></a></span>
-<span id="cb1-5"><a href=""></a><span class="co"># BAD filter (forgetting to handle NA, using base [] correctly this time but no cleaning)</span></span>
-<span id="cb1-6"><a href=""></a>young_bad <span class="ot">&lt;-</span> data_bad[data_bad<span class="sc">$</span>Age <span class="sc">&lt;</span> <span class="dv">30</span>, ]</span>
-<span id="cb1-7"><a href=""></a></span>
-<span id="cb1-8"><a href=""></a><span class="co"># BAD join using merge() with the same location_info</span></span>
-<span id="cb1-9"><a href=""></a>location_info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-10"><a href=""></a>  <span class="at">Location =</span> <span class="fu">c</span>(<span class="st">"California"</span>, <span class="st">"New York"</span>, <span class="st">"Texas"</span>, <span class="st">"Florida"</span>),</span>
-<span id="cb1-11"><a href=""></a>  <span class="at">Region   =</span> <span class="fu">c</span>(<span class="st">"West"</span>, <span class="st">"East"</span>, <span class="st">"South"</span>, <span class="st">"South"</span>),</span>
-<span id="cb1-12"><a href=""></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
-<span id="cb1-13"><a href=""></a>)</span>
-<span id="cb1-14"><a href=""></a></span>
-<span id="cb1-15"><a href=""></a>merged_bad <span class="ot">&lt;-</span> <span class="fu">merge</span>(young_bad, location_info)</span>
-<span id="cb1-16"><a href=""></a></span>
-<span id="cb1-17"><a href=""></a><span class="co"># BAD summary: mean without na.rm and no cleaning of Location variants</span></span>
-<span id="cb1-18"><a href=""></a>result_bad <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Purchase.Amount..USD. <span class="sc">~</span> Location, <span class="at">data =</span> merged_bad, <span class="at">FUN =</span> mean)</span>
-<span id="cb1-19"><a href=""></a></span>
-<span id="cb1-20"><a href=""></a><span class="co"># Rename columns to match good version later</span></span>
-<span id="cb1-21"><a href=""></a><span class="fu">names</span>(result_bad) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Location_clean"</span>, <span class="st">"avg_spend_bad"</span>)</span>
-<span id="cb1-22"><a href=""></a>result_bad<span class="sc">$</span>avg_spend_bad <span class="ot">&lt;-</span> <span class="fu">round</span>(result_bad<span class="sc">$</span>avg_spend_bad, <span class="dv">2</span>)</span>
-<span id="cb1-23"><a href=""></a></span>
-<span id="cb1-24"><a href=""></a>result_bad</span>
-<span id="cb1-25"><a href=""></a><span class="fu">print</span>(result_bad, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
-<span id="cb1-26"><a href=""></a><span class="fu">View</span>(result_bad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># BAD import: let R guess names and types</span></span>
+<span id="cb1-2"><a href=""></a>data_bad <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"shopping_behavior.csv"</span>)</span>
+<span id="cb1-3"><a href=""></a></span>
+<span id="cb1-4"><a href=""></a><span class="co"># BAD filter (forgetting to handle NA, using base [] correctly this time but no cleaning)</span></span>
+<span id="cb1-5"><a href=""></a>young_bad <span class="ot">&lt;-</span> data_bad[data_bad<span class="sc">$</span>Age <span class="sc">&lt;</span> <span class="dv">30</span>, ]</span>
+<span id="cb1-6"><a href=""></a></span>
+<span id="cb1-7"><a href=""></a><span class="co"># BAD join using merge() with the same location_info</span></span>
+<span id="cb1-8"><a href=""></a>location_info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-9"><a href=""></a>  <span class="at">Location =</span> <span class="fu">c</span>(<span class="st">"California"</span>, <span class="st">"New York"</span>, <span class="st">"Texas"</span>, <span class="st">"Florida"</span>),</span>
+<span id="cb1-10"><a href=""></a>  <span class="at">Region   =</span> <span class="fu">c</span>(<span class="st">"West"</span>, <span class="st">"East"</span>, <span class="st">"South"</span>, <span class="st">"South"</span>),</span>
+<span id="cb1-11"><a href=""></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb1-12"><a href=""></a>)</span>
+<span id="cb1-13"><a href=""></a></span>
+<span id="cb1-14"><a href=""></a>merged_bad <span class="ot">&lt;-</span> <span class="fu">merge</span>(young_bad, location_info)</span>
+<span id="cb1-15"><a href=""></a></span>
+<span id="cb1-16"><a href=""></a><span class="co"># BAD summary: mean without na.rm and no cleaning of Location variants</span></span>
+<span id="cb1-17"><a href=""></a>result_bad <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Purchase.Amount..USD. <span class="sc">~</span> Location, <span class="at">data =</span> merged_bad, <span class="at">FUN =</span> mean)</span>
+<span id="cb1-18"><a href=""></a></span>
+<span id="cb1-19"><a href=""></a><span class="co"># Rename columns to match good version later</span></span>
+<span id="cb1-20"><a href=""></a><span class="fu">names</span>(result_bad) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Location_clean"</span>, <span class="st">"avg_spend_bad"</span>)</span>
+<span id="cb1-21"><a href=""></a>result_bad<span class="sc">$</span>avg_spend_bad <span class="ot">&lt;-</span> <span class="fu">round</span>(result_bad<span class="sc">$</span>avg_spend_bad, <span class="dv">2</span>)</span>
+<span id="cb1-22"><a href=""></a></span>
+<span id="cb1-23"><a href=""></a>result_bad</span>
+<span id="cb1-24"><a href=""></a><span class="fu">print</span>(result_bad, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
+<span id="cb1-25"><a href=""></a><span class="fu">View</span>(result_bad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="section" class="slide level2">
 <h2></h2>
@@ -354,69 +361,84 @@ Karla Hernández - 400916125 - hernandez.karla@stud.hs-fresenius.de
 </section>
 <section id="good-practice-example" class="slide level2">
 <h2>Good Practice Example</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a></span>
-<span id="cb2-2"><a href=""></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb2-3"><a href=""></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb2-4"><a href=""></a></span>
-<span id="cb2-5"><a href=""></a><span class="co"># 1) Read data with good practices</span></span>
-<span id="cb2-6"><a href=""></a>data_good <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
-<span id="cb2-7"><a href=""></a>  <span class="st">"shopping_behavior.csv"</span>,</span>
-<span id="cb2-8"><a href=""></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb2-9"><a href=""></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span>   <span class="co"># keeps "Purchase Amount (USD)" as-is</span></span>
-<span id="cb2-10"><a href=""></a>)</span>
-<span id="cb2-11"><a href=""></a></span>
-<span id="cb2-12"><a href=""></a><span class="co"># 2) Parse dates correctly</span></span>
-<span id="cb2-13"><a href=""></a>data_good <span class="ot">&lt;-</span> data_good <span class="sc">%&gt;%</span></span>
-<span id="cb2-14"><a href=""></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-15"><a href=""></a>    <span class="at">Date_good =</span> <span class="fu">dmy</span>(Date)</span>
-<span id="cb2-16"><a href=""></a>  )</span>
-<span id="cb2-17"><a href=""></a></span>
-<span id="cb2-18"><a href=""></a><span class="co"># 3) Remove exact duplicate rows (we know we injected some)</span></span>
-<span id="cb2-19"><a href=""></a>data_nodup <span class="ot">&lt;-</span> data_good <span class="sc">%&gt;%</span></span>
-<span id="cb2-20"><a href=""></a>  <span class="fu">distinct</span>(<span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-21"><a href=""></a></span>
-<span id="cb2-22"><a href=""></a><span class="co"># 4) Keep only customers under 30</span></span>
-<span id="cb2-23"><a href=""></a>young_good <span class="ot">&lt;-</span> data_nodup <span class="sc">%&gt;%</span></span>
-<span id="cb2-24"><a href=""></a>  <span class="fu">filter</span>(Age <span class="sc">&lt;</span> <span class="dv">30</span>)</span>
-<span id="cb2-25"><a href=""></a></span>
-<span id="cb2-26"><a href=""></a><span class="co"># 5) Location lookup table (regions are just for context)</span></span>
-<span id="cb2-27"><a href=""></a>location_info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2-28"><a href=""></a>  <span class="at">Location =</span> <span class="fu">c</span>(<span class="st">"California"</span>, <span class="st">"New York"</span>, <span class="st">"Texas"</span>, <span class="st">"Florida"</span>),</span>
-<span id="cb2-29"><a href=""></a>  <span class="at">Region   =</span> <span class="fu">c</span>(<span class="st">"West"</span>, <span class="st">"East"</span>, <span class="st">"South"</span>, <span class="st">"South"</span>),</span>
-<span id="cb2-30"><a href=""></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
-<span id="cb2-31"><a href=""></a>)</span>
-<span id="cb2-32"><a href=""></a></span>
-<span id="cb2-33"><a href=""></a><span class="co"># 6) Safe join: keep all young customers, add Region if Location matches</span></span>
-<span id="cb2-34"><a href=""></a>merged_good <span class="ot">&lt;-</span> young_good <span class="sc">%&gt;%</span></span>
-<span id="cb2-35"><a href=""></a>  <span class="fu">left_join</span>(location_info, <span class="at">by =</span> <span class="st">"Location"</span>)</span>
-<span id="cb2-36"><a href=""></a></span>
-<span id="cb2-37"><a href=""></a><span class="co"># 7) Clean up Location variants into one standard name</span></span>
-<span id="cb2-38"><a href=""></a>final_clean <span class="ot">&lt;-</span> merged_good <span class="sc">%&gt;%</span></span>
-<span id="cb2-39"><a href=""></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-40"><a href=""></a>    <span class="at">Location_clean =</span> <span class="fu">case_when</span>(</span>
-<span id="cb2-41"><a href=""></a>      Location <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"California"</span>, <span class="st">"california"</span>, <span class="st">"Californi"</span>, <span class="st">"CA"</span>) <span class="sc">~</span> <span class="st">"California"</span>,</span>
-<span id="cb2-42"><a href=""></a>      Location <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"New York"</span>, <span class="st">"NewYork"</span>, <span class="st">"N. York"</span>)              <span class="sc">~</span> <span class="st">"New York"</span>,</span>
-<span id="cb2-43"><a href=""></a>      <span class="cn">TRUE</span> <span class="sc">~</span> Location</span>
-<span id="cb2-44"><a href=""></a>    )</span>
-<span id="cb2-45"><a href=""></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb2-46"><a href=""></a>  <span class="fu">group_by</span>(Location_clean) <span class="sc">%&gt;%</span></span>
-<span id="cb2-47"><a href=""></a>  <span class="fu">summarise</span>(</span>
-<span id="cb2-48"><a href=""></a>    <span class="at">avg_spend_young =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Purchase Amount (USD)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-49"><a href=""></a>    <span class="at">n_customers     =</span> <span class="fu">n</span>(),</span>
-<span id="cb2-50"><a href=""></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb2-51"><a href=""></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb2-52"><a href=""></a>  <span class="fu">arrange</span>(Location_clean)</span>
-<span id="cb2-53"><a href=""></a></span>
-<span id="cb2-54"><a href=""></a><span class="co"># 8) Round numbers to make the table nice for printing</span></span>
-<span id="cb2-55"><a href=""></a>final_clean<span class="sc">$</span>avg_spend_young <span class="ot">&lt;-</span> <span class="fu">round</span>(final_clean<span class="sc">$</span>avg_spend_young, <span class="dv">2</span>)</span>
-<span id="cb2-56"><a href=""></a></span>
-<span id="cb2-57"><a href=""></a><span class="co"># 9) Print final result nicely</span></span>
-<span id="cb2-58"><a href=""></a>final_clean</span>
-<span id="cb2-59"><a href=""></a></span>
-<span id="cb2-60"><a href=""></a><span class="fu">print</span>(final_clean, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
-<span id="cb2-61"><a href=""></a><span class="fu">View</span>(final_clean)</span>
-<span id="cb2-62"><a href=""></a></span>
-<span id="cb2-63"><a href=""></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Example of a good practice</span></span>
+<span id="cb2-2"><a href=""></a><span class="co"># 1) Import packages</span></span>
+<span id="cb2-3"><a href=""></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-4"><a href=""></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb2-5"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-6"><a href=""></a></span>
+<span id="cb2-7"><a href=""></a><span class="co"># 2) Read data with good practices</span></span>
+<span id="cb2-8"><a href=""></a>data_good <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb2-9"><a href=""></a>  <span class="st">"shopping_behavior.csv"</span>,</span>
+<span id="cb2-10"><a href=""></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-11"><a href=""></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span>   <span class="co"># keeps "Purchase Amount (USD)" as-is</span></span>
+<span id="cb2-12"><a href=""></a>)</span>
+<span id="cb2-13"><a href=""></a></span>
+<span id="cb2-14"><a href=""></a><span class="co"># 3) Parse dates correctly</span></span>
+<span id="cb2-15"><a href=""></a>data_good <span class="ot">&lt;-</span> data_good <span class="sc">%&gt;%</span></span>
+<span id="cb2-16"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-17"><a href=""></a>    <span class="at">Date_good =</span> <span class="fu">dmy</span>(Date)</span>
+<span id="cb2-18"><a href=""></a>  )</span>
+<span id="cb2-19"><a href=""></a></span>
+<span id="cb2-20"><a href=""></a><span class="co"># 4) Remove exact duplicate rows (we know we injected some)</span></span>
+<span id="cb2-21"><a href=""></a>data_nodup <span class="ot">&lt;-</span> data_good <span class="sc">%&gt;%</span></span>
+<span id="cb2-22"><a href=""></a>  <span class="fu">distinct</span>(<span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-23"><a href=""></a></span>
+<span id="cb2-24"><a href=""></a><span class="co"># 5) Keep only customers under 30</span></span>
+<span id="cb2-25"><a href=""></a>young_good <span class="ot">&lt;-</span> data_nodup <span class="sc">%&gt;%</span></span>
+<span id="cb2-26"><a href=""></a>  <span class="fu">filter</span>(Age <span class="sc">&lt;</span> <span class="dv">30</span>)</span>
+<span id="cb2-27"><a href=""></a></span>
+<span id="cb2-28"><a href=""></a><span class="co"># 6) Location lookup table (regions are just for context)</span></span>
+<span id="cb2-29"><a href=""></a>location_info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-30"><a href=""></a>  <span class="at">Location =</span> <span class="fu">c</span>(<span class="st">"California"</span>, <span class="st">"New York"</span>, <span class="st">"Texas"</span>, <span class="st">"Florida"</span>),</span>
+<span id="cb2-31"><a href=""></a>  <span class="at">Region   =</span> <span class="fu">c</span>(<span class="st">"West"</span>, <span class="st">"East"</span>, <span class="st">"South"</span>, <span class="st">"South"</span>),</span>
+<span id="cb2-32"><a href=""></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-33"><a href=""></a>)</span>
+<span id="cb2-34"><a href=""></a></span>
+<span id="cb2-35"><a href=""></a><span class="co"># 7) Safe join: keep all young customers, add Region if Location matches</span></span>
+<span id="cb2-36"><a href=""></a>merged_good <span class="ot">&lt;-</span> young_good <span class="sc">%&gt;%</span></span>
+<span id="cb2-37"><a href=""></a>  <span class="fu">left_join</span>(location_info, <span class="at">by =</span> <span class="st">"Location"</span>)</span>
+<span id="cb2-38"><a href=""></a></span>
+<span id="cb2-39"><a href=""></a><span class="co"># 8) Clean up Location variants into one standard name</span></span>
+<span id="cb2-40"><a href=""></a>final_clean <span class="ot">&lt;-</span> merged_good <span class="sc">%&gt;%</span></span>
+<span id="cb2-41"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-42"><a href=""></a>    <span class="at">Location_clean =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-43"><a href=""></a>      Location <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"California"</span>, <span class="st">"california"</span>, <span class="st">"Californi"</span>, <span class="st">"CA"</span>) <span class="sc">~</span> <span class="st">"California"</span>,</span>
+<span id="cb2-44"><a href=""></a>      Location <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"New York"</span>, <span class="st">"NewYork"</span>, <span class="st">"N. York"</span>)              <span class="sc">~</span> <span class="st">"New York"</span>,</span>
+<span id="cb2-45"><a href=""></a>      <span class="cn">TRUE</span> <span class="sc">~</span> Location</span>
+<span id="cb2-46"><a href=""></a>    )</span>
+<span id="cb2-47"><a href=""></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-48"><a href=""></a>  <span class="fu">group_by</span>(Location_clean) <span class="sc">%&gt;%</span></span>
+<span id="cb2-49"><a href=""></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-50"><a href=""></a>    <span class="at">avg_spend_young =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Purchase Amount (USD)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb2-51"><a href=""></a>    <span class="at">n_customers     =</span> <span class="fu">n</span>(),</span>
+<span id="cb2-52"><a href=""></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb2-53"><a href=""></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-54"><a href=""></a>  <span class="fu">arrange</span>(Location_clean)</span>
+<span id="cb2-55"><a href=""></a></span>
+<span id="cb2-56"><a href=""></a><span class="co"># 9) Round numbers to make the table nice for printing</span></span>
+<span id="cb2-57"><a href=""></a>final_clean<span class="sc">$</span>avg_spend_young <span class="ot">&lt;-</span> <span class="fu">round</span>(final_clean<span class="sc">$</span>avg_spend_young, <span class="dv">2</span>)</span>
+<span id="cb2-58"><a href=""></a></span>
+<span id="cb2-59"><a href=""></a><span class="co"># 10) Print final result nicely</span></span>
+<span id="cb2-60"><a href=""></a>final_clean</span>
+<span id="cb2-61"><a href=""></a></span>
+<span id="cb2-62"><a href=""></a><span class="fu">print</span>(final_clean, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
+<span id="cb2-63"><a href=""></a><span class="fu">View</span>(final_clean)</span>
+<span id="cb2-64"><a href=""></a></span>
+<span id="cb2-65"><a href=""></a><span class="co"># 11) Plot final results</span></span>
+<span id="cb2-66"><a href=""></a>plot_data <span class="ot">&lt;-</span> final_clean <span class="sc">%&gt;%</span></span>
+<span id="cb2-67"><a href=""></a>  <span class="fu">arrange</span>(avg_spend_young) <span class="sc">%&gt;%</span></span>
+<span id="cb2-68"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">Location_clean =</span> <span class="fu">factor</span>(Location_clean, Location_clean))</span>
+<span id="cb2-69"><a href=""></a></span>
+<span id="cb2-70"><a href=""></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> Location_clean, <span class="at">y =</span> avg_spend_young)) <span class="sc">+</span></span>
+<span id="cb2-71"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb2-72"><a href=""></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb2-73"><a href=""></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-74"><a href=""></a>    <span class="at">title =</span> <span class="st">"Average Spend of Customers Under 30 by Location"</span>,</span>
+<span id="cb2-75"><a href=""></a>    <span class="at">x =</span> <span class="st">"Location"</span>,</span>
+<span id="cb2-76"><a href=""></a>    <span class="at">y =</span> <span class="st">"Average Spend (USD)"</span></span>
+<span id="cb2-77"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb2-78"><a href=""></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
@@ -689,6 +711,10 @@ Karla Hernández - 400916125 - hernandez.karla@stud.hs-fresenius.de
 </div>
 </div>
 </section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+
+<img data-src="presentation_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
 <section id="lessons-from-data-mismanagement-in-business" class="slide level2">
 <h2>Lessons from Data Mismanagement in Business</h2>
 <ol type="1">
@@ -699,7 +725,7 @@ Karla Hernández - 400916125 - hernandez.karla@stud.hs-fresenius.de
 <li><em>Being explicit</em> in your code <strong>prevents disasters</strong>.</li>
 </ol>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section-3" class="slide level2">
 <h2></h2>
 <ol start="6" type="1">
 <li>Documentation and reproducible scripts <strong>protect</strong> you from <em>mistakes</em>.</li>

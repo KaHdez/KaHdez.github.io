@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
-
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-{ counter-reset: source-line 0; }
-pre.numberSource code > span
-{ position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-{ content: counter(source-line);
-position: relative; left: -1em; text-align: right; vertical-align: baseline;
-border: none; display: inline-block;
--webkit-touch-callout: none; -webkit-user-select: none;
--khtml-user-select: none; -moz-user-select: none;
--ms-user-select: none; user-select: none;
-padding: 0 4px; width: 4em;
-}
-pre.numberSource { margin-left: 3em; padding-left: 4px; }
-div.sourceCode
-{ }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -2236,11 +2201,9 @@ border-bottom: none;
   <li><a href="#what-may-count-as-a-small-error" id="toc-what-may-count-as-a-small-error" class="nav-link" data-scroll-target="#what-may-count-as-a-small-error"><span class="header-section-number">2</span> What May Count as a “Small Error”?</a></li>
   <li><a href="#tiny-erros-big-consequences" id="toc-tiny-erros-big-consequences" class="nav-link" data-scroll-target="#tiny-erros-big-consequences"><span class="header-section-number">3</span> Tiny Erros, Big Consequences</a></li>
   <li><a href="#bad-practice-vs-better-practice-in-r" id="toc-bad-practice-vs-better-practice-in-r" class="nav-link" data-scroll-target="#bad-practice-vs-better-practice-in-r"><span class="header-section-number">4</span> Bad Practice vs Better Practice in R</a></li>
-  <li><a href="#example-of-a-bad-practice" id="toc-example-of-a-bad-practice" class="nav-link" data-scroll-target="#example-of-a-bad-practice"><span class="header-section-number">5</span> Example of a Bad Practice</a></li>
-  <li><a href="#example-of-a-good-practice" id="toc-example-of-a-good-practice" class="nav-link" data-scroll-target="#example-of-a-good-practice"><span class="header-section-number">6</span> Example of a Good Practice</a></li>
-  <li><a href="#lessons-from-data-mismanagement-in-business" id="toc-lessons-from-data-mismanagement-in-business" class="nav-link" data-scroll-target="#lessons-from-data-mismanagement-in-business"><span class="header-section-number">7</span> Lessons from Data Mismanagement in Business</a></li>
-  <li><a href="#affidavit" id="toc-affidavit" class="nav-link" data-scroll-target="#affidavit"><span class="header-section-number">8</span> Affidavit</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">9</span> References</a></li>
+  <li><a href="#lessons-from-data-mismanagement-in-business" id="toc-lessons-from-data-mismanagement-in-business" class="nav-link" data-scroll-target="#lessons-from-data-mismanagement-in-business"><span class="header-section-number">5</span> Lessons from Data Mismanagement in Business</a></li>
+  <li><a href="#affidavit" id="toc-affidavit" class="nav-link" data-scroll-target="#affidavit"><span class="header-section-number">6</span> Affidavit</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">7</span> References</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="handout.pdf"><i class="bi bi-file-pdf"></i>PDF (apaquarto)</a></li></ul></div></nav>
 </div>
@@ -2282,7 +2245,7 @@ border-bottom: none;
 </section>
 <section id="firstheader" class="level1 title unnumbered unlisted">
 <h1 class="title unnumbered unlisted">Small Errors, Big Consequences: Lessons from Data Mismanagement in Business</h1>
-<p>Word count: 1202</p>
+<p>Word count: 1115</p>
 </section>
 <section id="small-erros" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> “Small” Erros</h1>
@@ -2397,224 +2360,83 @@ border-bottom: none;
 <h1 data-number="4"><span class="header-section-number">4</span> Bad Practice vs Better Practice in R</h1>
 <p>Now, we will see some examples on how to avoid small mistakes in R and replace risky habits with safer, clearer, and more reliable practices. Many of the “bad practices” shown below are considered wrong mainly because even though R runs them perfectly fine, the results are quietly broken. This means we will get broken results used in reports, dashboards, or business decisions, and here is when the damage is done.</p>
 <p>This section is about learning to recognize moments where we <em>assume</em> something instead of <strong>checking</strong>, we let R <em>“guess”</em> instead of giving <strong>clear instructions</strong>, we work <em>faster</em> instead of <strong>safer</strong>, and we <em>trust</em> the output simply because <strong>“there was no error message”</strong>.</p>
-<p>asdf</p>
-<div id="tbl-ctable" class="quarto-float quarto-figure quarto-figure-center FigureWithoutNote" prefix data-tblnum="3" data-custom-style="FigureWithoutNote">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ctable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="FigureTitle" data-custom-style="FigureTitle">
-<p>Table 3</p>
-</div>
-<div class="Caption" data-custom-style="Caption">
-<p>Best common practices</p>
-</div>
-</figcaption>
-<div aria-describedby="tbl-ctable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 9%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 37%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Task</th>
-<th>Bad Practice</th>
-<th>Better Practice</th>
-<th>Explanation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Importing</td>
-<td><code>read.csv(&quot;file.csv&quot;)</code></td>
-<td><code>read.csv(&quot;file.csv&quot;, stringsAsFactors = FALSE)</code></td>
-<td>R doesn’t convert text into categories automatically.</td>
-</tr>
-<tr class="even">
-<td>Missing values</td>
-<td><code>mean(x)</code></td>
-<td><code>mean(x, na.rm = TRUE)</code></td>
-<td>Get real averages instead of NA results that look “valid” but are unusable.</td>
-</tr>
-<tr class="odd">
-<td>Joining tables</td>
-<td><code>merge(df1, df2)</code></td>
-<td><code>left_join(df1, df2, by = &quot;ID&quot;)</code> + <code>anti_join()</code></td>
-<td>Avoid accidental duplicates and can see which rows didn’t match.</td>
-</tr>
-<tr class="even">
-<td>Data types</td>
-<td>Assuming R knows the type</td>
-<td><code>str()</code></td>
-<td>Verify and enforce data types instead of hiping R guessed correctly. <strong><em>Only applicable for versions prior to R 4.0</em></strong></td>
-</tr>
-<tr class="odd">
-<td>Checking data</td>
-<td>Not looking at the data</td>
-<td><code>summary()</code>, <code>head()</code>, <code>table()</code>, <code>view()</code></td>
-<td>Catch mistakes before modeling instead of discovering them too late.</td>
-</tr>
-<tr class="even">
-<td>Filtering</td>
-<td><code>data[data$age &gt; 18]</code></td>
-<td><code>filter(data, age &gt; 18)</code></td>
-<td>Keeps the dataset clean and consistent instead of returning unpredictable formats.</td>
-</tr>
-<tr class="odd">
-<td>Removing duplicates</td>
-<td><code>unique(data)</code></td>
-<td><code>distinct(data, .keep_all = TRUE)</code></td>
-<td>Removes duplicates but also lets us see exactly which rows were duplicated.</td>
-</tr>
-<tr class="even">
-<td>Renaming columns</td>
-<td><code>colnames(data) [3] &lt;- &quot;sales&quot;</code></td>
-<td><code>rename(data, sales = old_name)</code></td>
-<td>Rename the correct column even if column order later changes.</td>
-</tr>
-<tr class="odd">
-<td>Selecting columns</td>
-<td><code>data[, c(1,2,5]</code></td>
-<td><code>select(data, name, price, region)</code></td>
-<td>Safer because column names don’t change, column numbers do.</td>
-</tr>
-<tr class="even">
-<td>Dates</td>
-<td><code>as.Date(Date)</code></td>
-<td><code>as.Date(date, format=&quot;%d/%m/%Y&quot;)</code> or <code>lubridate::dmy()</code></td>
-<td>Prevents R from guessing the wrong date format, which happens often.</td>
-</tr>
-<tr class="odd">
-<td>Reading Excel</td>
-<td><code>read:excel(&quot;file.xlsx&quot;)</code></td>
-<td><code>read_excel(&quot;file.xlsx&quot;, sheet=&quot;Sales2024)</code></td>
-<td>Makes sure to always read the correct sheet even if the sheet order changes.</td>
-</tr>
-<tr class="even">
-<td>Plotting</td>
-<td><code>plot(data)</code></td>
-<td><code>ggplot(data, aes(x, y))</code> + <code>geom_line()</code></td>
-<td>Control exactly what gets plotted instead of letting R “guess”.</td>
-</tr>
-<tr class="odd">
-<td>Pipelines</td>
-<td>Many separate steps</td>
-<td>`data</td>
-<td>&gt;filter()</td>
-</tr>
-<tr class="even">
-<td>Saving</td>
-<td>Overwriting the raw file</td>
-<td>Save a separate clean file</td>
-<td>Always keep the original data safe in case of errors.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-<div class="AfterWithoutNote" data-custom-style="AfterWithoutNote">
+<p>Now we’ll see some tasks and how we can avoid bad practices with examples of the best common practices:</p>
+<ul>
+<li><strong>Importing:</strong> R doesn’t convert text into categories automatically.
+<ul>
+<li><em>Bad Practice:</em> <code>read.csv(&quot;file.csv&quot;)</code></li>
+<li><em>Good Practice:</em> <code>read.csv(&quot;file.csv&quot;, stringsAsFactors = FALSE)</code></li>
+</ul></li>
+<li><strong>Missing values:</strong> Get real averages instead of NA results that look “valid” but are unusable.
+<ul>
+<li><em>Bad Practice:</em> <code>mean(x)</code></li>
+<li><em>Good Practice:</em> <code>mean(x, na.rm = TRUE)</code></li>
+</ul></li>
+<li><strong>Joining tables:</strong> Avoid accidental duplicates and can see which rows didn’t match.
+<ul>
+<li><em>Bad Practice:</em> <code>merge(df1, df2)</code></li>
+<li><em>Good Practice:</em> <code>left_join(df1, df2, by = &quot;ID&quot;)</code> + <code>anti_join()</code></li>
+</ul></li>
+<li><strong>Data types:</strong> Verify and enforce data types instead of hiping R guessed correctly. <strong><em>Only applicable for versions prior to R 4.0</em></strong>
+<ul>
+<li><em>Bad Practice:</em> Assuming R knows the type</li>
+<li><em>Good Practice:</em> <code>str()</code></li>
+</ul></li>
+<li><strong>Checking data:</strong> Catch mistakes before modeling instead of discovering them too late.
+<ul>
+<li><em>Bad Practice:</em> Not looking at the data</li>
+<li><em>Good Practice:</em> <code>summary()</code>, <code>head()</code>, <code>table()</code>, <code>view()</code></li>
+</ul></li>
+<li><strong>Filtering:</strong> Keeps the dataset clean and consistent instead of returning unpredictable formats.
+<ul>
+<li><em>Bad Practice:</em> <code>data[data$age &gt; 18]</code></li>
+<li><em>Good Practice:</em> <code>filter(data, age &gt; 18)</code></li>
+</ul></li>
+<li><strong>Removing duplicates:</strong> Removes duplicates but also lets us see exactly which rows were duplicated.
+<ul>
+<li><em>Bad Practice:</em> <code>unique(data)</code></li>
+<li><em>Good Practice:</em> <code>distinct(data, .keep_all = TRUE)</code></li>
+</ul></li>
+<li><strong>Renaming columns:</strong> Rename the correct column even if column order later changes.
+<ul>
+<li><em>Bad Practice:</em> <code>colnames(data) [3] &lt;- &quot;sales&quot;</code></li>
+<li><em>Good Practice:</em> <code>rename(data, sales = old_name)</code></li>
+</ul></li>
+<li><strong>Selecting columns:</strong> Safer because column names don’t change, column numbers do.
+<ul>
+<li><em>Bad Practice:</em> <code>data[, c(1,2,5]</code></li>
+<li><em>Good Practice:</em> <code>select(data, name, price, region)</code></li>
+</ul></li>
+<li><strong>Dates:</strong> Prevents R from guessing the wrong date format, which happens often.
+<ul>
+<li><em>Bad Practice:</em> <code>as.Date(Date)</code></li>
+<li><em>Good Practice:</em> <code>as.Date(date, format=&quot;%d/%m/%Y&quot;)</code> or <code>lubridate::dmy()</code></li>
+</ul></li>
+<li><strong>Reading Excel:</strong> Makes sure to always read the correct sheet even if the sheet order changes.
+<ul>
+<li><em>Bad Practice:</em> <code>read:excel(&quot;file.xlsx&quot;)</code></li>
+<li><em>Good Practice:</em> <code>read_excel(&quot;file.xlsx&quot;, sheet=&quot;Sales2024)</code></li>
+</ul></li>
+<li><strong>Plotting:</strong> Control exactly what gets plotted instead of letting R “guess”.
+<ul>
+<li><em>Bad Practice:</em> <code>plot(data)</code></li>
+<li><em>Good Practice:</em> <code>ggplot(data, aes(x, y))</code> + <code>geom_line()</code></li>
+</ul></li>
+<li><strong>Pipelines:</strong> &gt;filter()
+<ul>
+<li><em>Bad Practice:</em> Many separate steps</li>
+<li><em>Good Practice:</em> `data</li>
+</ul></li>
+<li><strong>Saving:</strong> Always keep the original data safe in case of errors.
+<ul>
+<li><em>Bad Practice:</em> Overwriting the raw file</li>
+<li><em>Good Practice:</em> Save a separate clean file</li>
+</ul></li>
+</ul>
 <p>By comparing bad practices vs better practices, we can clearly see how very small choices in code, tiny details, can be the difference between a <em>result that is silently wrong</em> and a <strong>result that can be trusted.</strong></p>
-</div>
 </section>
-<section id="example-of-a-bad-practice" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Example of a Bad Practice</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># BAD import: let R guess names and types</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data_bad <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;shopping_behavior.csv&quot;</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># BAD filter (forgetting to handle NA, using base [] correctly this time but no cleaning)</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>young_bad <span class="ot">&lt;-</span> data_bad[data_bad<span class="sc">$</span>Age <span class="sc">&lt;</span> <span class="dv">30</span>, ]</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># BAD join using merge() with the same location_info</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>location_info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Location =</span> <span class="fu">c</span>(<span class="st">&quot;California&quot;</span>, <span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Texas&quot;</span>, <span class="st">&quot;Florida&quot;</span>),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Region   =</span> <span class="fu">c</span>(<span class="st">&quot;West&quot;</span>, <span class="st">&quot;East&quot;</span>, <span class="st">&quot;South&quot;</span>, <span class="st">&quot;South&quot;</span>),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>merged_bad <span class="ot">&lt;-</span> <span class="fu">merge</span>(young_bad, location_info)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># BAD summary: mean without na.rm and no cleaning of Location variants</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>result_bad <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Purchase.Amount..USD. <span class="sc">~</span> Location, <span class="at">data =</span> merged_bad, <span class="at">FUN =</span> mean)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns to match good version later</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(result_bad) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Location_clean&quot;</span>, <span class="st">&quot;avg_spend_bad&quot;</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>result_bad<span class="sc">$</span>avg_spend_bad <span class="ot">&lt;-</span> <span class="fu">round</span>(result_bad<span class="sc">$</span>avg_spend_bad, <span class="dv">2</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>result_bad</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result_bad, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(result_bad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="example-of-a-good-practice" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Example of a Good Practice</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Read data with good practices</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data_good <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;shopping_behavior.csv&quot;</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span>   <span class="co"># keeps &quot;Purchase Amount (USD)&quot; as-is</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Parse dates correctly</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>data_good <span class="ot">&lt;-</span> data_good <span class="sc">%&gt;%</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Date_good =</span> <span class="fu">dmy</span>(Date)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Remove exact duplicate rows (we know we injected some)</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>data_nodup <span class="ot">&lt;-</span> data_good <span class="sc">%&gt;%</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(<span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Keep only customers under 30</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>young_good <span class="ot">&lt;-</span> data_nodup <span class="sc">%&gt;%</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Age <span class="sc">&lt;</span> <span class="dv">30</span>)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 5) Location lookup table (regions are just for context)</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>location_info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">Location =</span> <span class="fu">c</span>(<span class="st">&quot;California&quot;</span>, <span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Texas&quot;</span>, <span class="st">&quot;Florida&quot;</span>),</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">Region   =</span> <span class="fu">c</span>(<span class="st">&quot;West&quot;</span>, <span class="st">&quot;East&quot;</span>, <span class="st">&quot;South&quot;</span>, <span class="st">&quot;South&quot;</span>),</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 6) Safe join: keep all young customers, add Region if Location matches</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>merged_good <span class="ot">&lt;-</span> young_good <span class="sc">%&gt;%</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(location_info, <span class="at">by =</span> <span class="st">&quot;Location&quot;</span>)</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># 7) Clean up Location variants into one standard name</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>final_clean <span class="ot">&lt;-</span> merged_good <span class="sc">%&gt;%</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">Location_clean =</span> <span class="fu">case_when</span>(</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>      Location <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;California&quot;</span>, <span class="st">&quot;california&quot;</span>, <span class="st">&quot;Californi&quot;</span>, <span class="st">&quot;CA&quot;</span>) <span class="sc">~</span> <span class="st">&quot;California&quot;</span>,</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>      Location <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;New York&quot;</span>, <span class="st">&quot;NewYork&quot;</span>, <span class="st">&quot;N. York&quot;</span>)              <span class="sc">~</span> <span class="st">&quot;New York&quot;</span>,</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> Location</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Location_clean) <span class="sc">%&gt;%</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_spend_young =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Purchase Amount (USD)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_customers     =</span> <span class="fu">n</span>(),</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Location_clean)</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 8) Round numbers to make the table nice for printing</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>final_clean<span class="sc">$</span>avg_spend_young <span class="ot">&lt;-</span> <span class="fu">round</span>(final_clean<span class="sc">$</span>avg_spend_young, <span class="dv">2</span>)</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="co"># 9) Print final result nicely</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>final_clean</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(final_clean, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(final_clean)</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="lessons-from-data-mismanagement-in-business" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Lessons from Data Mismanagement in Business</h1>
+<section id="lessons-from-data-mismanagement-in-business" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Lessons from Data Mismanagement in Business</h1>
 <ol type="1">
 <li>A tiny mistake in data can cause a huge mistake in a business decision.</li>
 <li>RStudio won’t warn you when the result is wrong, only when the code is.</li>
@@ -2628,8 +2450,8 @@ border-bottom: none;
 <li>Great analysts aren’t those who make no mistakes, they are the ones who catch mistakes early.</li>
 </ol>
 </section>
-<section id="affidavit" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Affidavit</h1>
+<section id="affidavit" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Affidavit</h1>
 <p>I hereby affirm that this submitted paper was authored unaided and solely by me. Additionally, no other sources than those in the reference list were used. Parts of this paper, including tables and figures, that have been taken either verbatim or analogously from other works have in each case been properly cited with regard to their origin and authorship. This paper either in parts or in its entirety, be it in the same or similar form, has not been submitted to any other examination board and has not been published.</p>
 <p>I acknowledge that the university may use plagiarism detection software to check my thesis. I agree to cooperate with any investigation of suspected plagiarism and to provide any additional information or evidence requested by the university.</p>
 <p>Checklist:</p>
@@ -2650,8 +2472,8 @@ border-bottom: none;
 </ul>
 <p>[Karla Hernández,] [2025-02-17,] [Köln, Germany]</p>
 </section>
-<section id="references" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> References</h1>
+<section id="references" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> References</h1>
 </section>
 
 </main>
