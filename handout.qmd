@@ -91,6 +91,8 @@ Now, we will see some examples on how to avoid small mistakes in R and replace r
 
 This section is about learning to recognize moments where we *assume* something instead of **checking**, we let R *“guess”* instead of giving **clear instructions**, we work *faster* instead of **safer**, and we *trust* the output simply because **“there was no error message”**.
 
+asdf
+
 ::: {#tbl-ctable}
 | Task | Bad Practice | Better Practice | Explanation |
 |-------|-------------------|-------------------|---------------------------|
